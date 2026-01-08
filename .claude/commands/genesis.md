@@ -1,5 +1,5 @@
 ---
-allowed-tools: Bash(*), Read, Write, Edit, Glob, Grep, WebFetch, WebSearch, Task, AskUserQuestion
+allowed-tools: Bash(*), Read, Write, Edit, Glob, Grep, WebFetch, WebSearch, Task, AskUserQuestion, mcp__perplexity-ask__perplexity_ask, mcp__firecrawl__firecrawl_search, mcp__firecrawl__firecrawl_scrape, mcp__exa__web_search_exa, mcp__exa__get_code_context_exa, mcp__raindrop__create_collection, mcp__raindrop__create_bookmark, mcp__raindrop__search_bookmarks, mcp__context7__resolve-library-id, mcp__context7__query-docs
 argument-hint: [build-prompt-or-file] [context-files...]
 description: Genesis specification generator - structured intake for professional technical specs
 model: opus
@@ -12,6 +12,37 @@ You are initiating a Genesis specification project. Your goal is to gather compr
 ## Arguments Received
 - Primary Input: $1
 - Additional Context: $ARGUMENTS
+
+## Phase 0: MCP Server Verification
+
+Before starting, verify that required MCP servers are available. Check for these tools:
+
+### Required MCP Tools
+1. **Perplexity** (`mcp__perplexity-ask__perplexity_ask`) - Web research
+2. **Firecrawl** (`mcp__firecrawl__firecrawl_search`) - Web scraping
+3. **Raindrop** (`mcp__raindrop__create_collection`) - Documentation collections
+4. **Exa** (`mcp__exa__web_search_exa`) - Code search
+
+### If MCPs are missing:
+Inform the user:
+```
+Genesis requires MCP servers for full functionality.
+
+Missing: [list missing MCPs]
+
+To install, run:
+  claude mcp add perplexity-ask -- npx -y server-perplexity-ask
+  claude mcp add firecrawl -- npx -y firecrawl-mcp
+  claude mcp add raindrop -- npx -y @nicholasrq/raindrop-mcp
+  claude mcp add exa -- npx -y @anthropic/exa-mcp
+
+Required environment variables:
+  PERPLEXITY_API_KEY, FIRECRAWL_API_KEY, RAINDROP_API_KEY, EXA_API_KEY
+
+After setup, restart Claude Code and run /genesis again.
+```
+
+If all MCPs are available, proceed silently.
 
 ## Phase 1: Initial Context Analysis
 
@@ -81,6 +112,76 @@ Example probing questions:
 - "You mentioned 'fast performance' - what specific latency target in milliseconds?"
 - "For the user dashboard, what specific data visualizations are needed?"
 - "When you say 'integrate with Slack', do you mean notifications, commands, or full workflow?"
+
+## Phase 3.5: Skills & Tools Suggestions
+
+Based on the gathered requirements, search for relevant skills and suggest them to the user.
+
+### Step 1: Read Skills Registry
+Read `skills-registry.json` to get the list of available skills.
+
+### Step 2: Match Skills to Project
+Analyze the project requirements and match against skill triggers:
+
+| If Project Involves | Suggest Skill |
+|---------------------|---------------|
+| React, Next.js, frontend | `frontend-react` |
+| Vue, Nuxt | `frontend-vue` |
+| Node.js API, Express | `backend-node` |
+| Python, FastAPI, Django | `backend-python` |
+| PostgreSQL, database | `database-postgres` |
+| AI, LLM, chatbot, RAG | `ai-langchain` |
+| Autonomous agents | `ai-agents` |
+| Docker, containers | `devops-docker` |
+| CI/CD, GitHub Actions | `devops-cicd` |
+| Testing, Vitest | `testing-vitest` |
+| E2E, Playwright | `testing-playwright` |
+| Authentication, OAuth | `auth-oauth` |
+| Mobile app | `mobile-react-native` |
+| GraphQL | `api-graphql` |
+| Monitoring, logging | `monitoring-observability` |
+
+### Step 3: Research Current Best Practices
+Use MCP tools to research current best practices for the identified technologies:
+
+```
+Use mcp__perplexity-ask__perplexity_ask to research:
+- "[technology] best practices 2025"
+- "[framework] recommended patterns"
+```
+
+```
+Use mcp__exa__get_code_context_exa to get:
+- Current documentation for key libraries
+- Code examples for identified patterns
+```
+
+### Step 4: Present Skills to User
+Present matched skills to the user:
+
+```
+Based on your project, I recommend these Claude Code skills:
+
+RECOMMENDED SKILLS:
+┌─────────────────────────────────────────────────────────────┐
+│ frontend-react                                               │
+│ React Frontend Development                                   │
+│ Helps with: Component patterns, hooks, state management     │
+│ Install: claude skill install frontend-react                │
+└─────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────┐
+│ backend-node                                                 │
+│ Node.js Backend Development                                  │
+│ Helps with: API design, middleware, Express patterns        │
+│ Install: claude skill install backend-node                  │
+└─────────────────────────────────────────────────────────────┘
+
+Would you like me to note these in your specification for later installation?
+```
+
+### Step 5: Record Suggested Skills
+Add suggested skills to the handoff file for reference during implementation.
 
 ## Phase 4: Synthesis & Confirmation
 

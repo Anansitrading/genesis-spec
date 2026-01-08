@@ -34,6 +34,52 @@ claude
 - [Claude Code CLI](https://claude.ai/code) installed and authenticated
 - Bash (Linux/macOS) or PowerShell (Windows)
 
+### Required MCP Servers
+
+Genesis uses MCP (Model Context Protocol) servers for enhanced capabilities. These are **required** for full functionality:
+
+| MCP Server | Purpose | API Key Required |
+|------------|---------|------------------|
+| **Perplexity** | Web research, current documentation | Yes |
+| **Firecrawl** | Web scraping, content extraction | Yes |
+| **Raindrop.io** | Bookmark collections, documentation curation | Yes |
+| **Exa** | Code-focused search | Yes |
+| **Context7** | Library documentation lookup | No |
+
+**Get API Keys:**
+- Perplexity: https://www.perplexity.ai/settings/api
+- Firecrawl: https://firecrawl.dev/
+- Raindrop: https://app.raindrop.io/settings/integrations
+- Exa: https://exa.ai/
+
+### MCP Setup
+
+After installing Genesis, configure MCP servers:
+
+```bash
+# Set environment variables (add to ~/.bashrc or ~/.zshrc)
+export PERPLEXITY_API_KEY="your-key"
+export FIRECRAWL_API_KEY="your-key"
+export RAINDROP_API_KEY="your-key"
+export EXA_API_KEY="your-key"
+
+# Add MCP servers to Claude Code
+claude mcp add perplexity-ask -- npx -y server-perplexity-ask
+claude mcp add firecrawl -- npx -y firecrawl-mcp
+claude mcp add raindrop -- npx -y @nicholasrq/raindrop-mcp
+claude mcp add exa -- npx -y @anthropic/exa-mcp
+claude mcp add context7 -- npx -y @anthropic/context7-mcp
+
+# Verify MCP servers are connected
+claude
+/mcp
+```
+
+### Optional: Skills Marketplace
+
+Genesis can suggest relevant skills from the Claude Code Skills Marketplace during intake. Browse available skills at:
+- https://github.com/anthropics/claude-code-skills (or marketplace UI)
+
 ### Linux / macOS
 
 ```bash

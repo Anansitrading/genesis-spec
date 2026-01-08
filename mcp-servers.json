@@ -1,0 +1,54 @@
+{
+  "mcpServers": {
+    "perplexity-ask": {
+      "command": "npx",
+      "args": ["-y", "server-perplexity-ask"],
+      "env": {
+        "PERPLEXITY_API_KEY": "${PERPLEXITY_API_KEY}"
+      },
+      "required": true,
+      "purpose": "Web research and current documentation lookup"
+    },
+    "firecrawl": {
+      "command": "npx",
+      "args": ["-y", "firecrawl-mcp"],
+      "env": {
+        "FIRECRAWL_API_KEY": "${FIRECRAWL_API_KEY}"
+      },
+      "required": true,
+      "purpose": "Web scraping and content extraction"
+    },
+    "raindrop": {
+      "command": "npx",
+      "args": ["-y", "@nicholasrq/raindrop-mcp"],
+      "env": {
+        "RAINDROP_API_KEY": "${RAINDROP_API_KEY}"
+      },
+      "required": true,
+      "purpose": "Bookmark collections and documentation curation"
+    },
+    "exa": {
+      "command": "npx",
+      "args": ["-y", "@anthropic/exa-mcp"],
+      "env": {
+        "EXA_API_KEY": "${EXA_API_KEY}"
+      },
+      "required": true,
+      "purpose": "Code-focused search and context"
+    },
+    "context7": {
+      "command": "npx",
+      "args": ["-y", "@anthropic/context7-mcp"],
+      "env": {},
+      "required": false,
+      "purpose": "Library documentation lookup"
+    }
+  },
+  "requiredTools": {
+    "perplexity-ask": ["perplexity_ask"],
+    "firecrawl": ["firecrawl_scrape", "firecrawl_search", "firecrawl_map"],
+    "raindrop": ["get_bookmarks", "create_bookmark", "create_collection", "search_bookmarks"],
+    "exa": ["web_search_exa", "get_code_context_exa"],
+    "context7": ["resolve-library-id", "query-docs"]
+  }
+}

@@ -1,0 +1,160 @@
+{
+  "version": "1.0",
+  "description": "Skills registry for Genesis - maps project types to relevant Claude Code skills",
+  "skills": [
+    {
+      "name": "frontend-react",
+      "displayName": "React Frontend Development",
+      "description": "React component development, hooks, state management patterns",
+      "triggers": ["react", "frontend", "web app", "ui", "user interface", "components"],
+      "technologies": ["react", "next.js", "typescript", "tailwind"],
+      "source": "marketplace",
+      "installCommand": "claude skill install frontend-react"
+    },
+    {
+      "name": "frontend-vue",
+      "displayName": "Vue.js Frontend Development",
+      "description": "Vue 3 composition API, Nuxt, component patterns",
+      "triggers": ["vue", "nuxt", "frontend"],
+      "technologies": ["vue", "nuxt", "typescript"],
+      "source": "marketplace",
+      "installCommand": "claude skill install frontend-vue"
+    },
+    {
+      "name": "backend-node",
+      "displayName": "Node.js Backend Development",
+      "description": "Express, Fastify, API design, middleware patterns",
+      "triggers": ["node", "backend", "api", "express", "server"],
+      "technologies": ["node.js", "express", "fastify", "typescript"],
+      "source": "marketplace",
+      "installCommand": "claude skill install backend-node"
+    },
+    {
+      "name": "backend-python",
+      "displayName": "Python Backend Development",
+      "description": "FastAPI, Django, Flask patterns and best practices",
+      "triggers": ["python", "fastapi", "django", "flask", "backend"],
+      "technologies": ["python", "fastapi", "django", "flask"],
+      "source": "marketplace",
+      "installCommand": "claude skill install backend-python"
+    },
+    {
+      "name": "database-postgres",
+      "displayName": "PostgreSQL Database Design",
+      "description": "Schema design, queries, migrations, performance",
+      "triggers": ["postgres", "postgresql", "database", "sql", "schema"],
+      "technologies": ["postgresql", "prisma", "drizzle"],
+      "source": "marketplace",
+      "installCommand": "claude skill install database-postgres"
+    },
+    {
+      "name": "ai-langchain",
+      "displayName": "LangChain AI Integration",
+      "description": "LLM integration, chains, agents, RAG patterns",
+      "triggers": ["ai", "llm", "langchain", "rag", "chatbot", "agent"],
+      "technologies": ["langchain", "openai", "anthropic", "vector-db"],
+      "source": "marketplace",
+      "installCommand": "claude skill install ai-langchain"
+    },
+    {
+      "name": "ai-agents",
+      "displayName": "AI Agent Development",
+      "description": "Autonomous agents, tool use, multi-agent systems",
+      "triggers": ["agent", "autonomous", "multi-agent", "tool use"],
+      "technologies": ["langchain", "autogen", "crew-ai"],
+      "source": "marketplace",
+      "installCommand": "claude skill install ai-agents"
+    },
+    {
+      "name": "devops-docker",
+      "displayName": "Docker & Containerization",
+      "description": "Dockerfile, compose, container orchestration",
+      "triggers": ["docker", "container", "devops", "deployment"],
+      "technologies": ["docker", "docker-compose", "kubernetes"],
+      "source": "marketplace",
+      "installCommand": "claude skill install devops-docker"
+    },
+    {
+      "name": "devops-cicd",
+      "displayName": "CI/CD Pipelines",
+      "description": "GitHub Actions, GitLab CI, automated testing and deployment",
+      "triggers": ["ci/cd", "pipeline", "github actions", "deployment", "automation"],
+      "technologies": ["github-actions", "gitlab-ci", "jenkins"],
+      "source": "marketplace",
+      "installCommand": "claude skill install devops-cicd"
+    },
+    {
+      "name": "testing-vitest",
+      "displayName": "Vitest Testing",
+      "description": "Unit testing, mocking, coverage with Vitest",
+      "triggers": ["testing", "unit test", "vitest", "coverage"],
+      "technologies": ["vitest", "testing-library"],
+      "source": "marketplace",
+      "installCommand": "claude skill install testing-vitest"
+    },
+    {
+      "name": "testing-playwright",
+      "displayName": "Playwright E2E Testing",
+      "description": "End-to-end testing, browser automation",
+      "triggers": ["e2e", "end-to-end", "playwright", "browser testing"],
+      "technologies": ["playwright", "e2e"],
+      "source": "marketplace",
+      "installCommand": "claude skill install testing-playwright"
+    },
+    {
+      "name": "auth-oauth",
+      "displayName": "OAuth & Authentication",
+      "description": "OAuth 2.0, OIDC, JWT, session management",
+      "triggers": ["auth", "authentication", "oauth", "login", "jwt", "security"],
+      "technologies": ["oauth", "jwt", "nextauth", "clerk"],
+      "source": "marketplace",
+      "installCommand": "claude skill install auth-oauth"
+    },
+    {
+      "name": "mobile-react-native",
+      "displayName": "React Native Mobile",
+      "description": "Cross-platform mobile development with React Native",
+      "triggers": ["mobile", "react native", "ios", "android", "app"],
+      "technologies": ["react-native", "expo"],
+      "source": "marketplace",
+      "installCommand": "claude skill install mobile-react-native"
+    },
+    {
+      "name": "api-graphql",
+      "displayName": "GraphQL API Design",
+      "description": "GraphQL schema design, resolvers, Apollo",
+      "triggers": ["graphql", "apollo", "api"],
+      "technologies": ["graphql", "apollo", "prisma"],
+      "source": "marketplace",
+      "installCommand": "claude skill install api-graphql"
+    },
+    {
+      "name": "monitoring-observability",
+      "displayName": "Monitoring & Observability",
+      "description": "Logging, metrics, tracing, alerting setup",
+      "triggers": ["monitoring", "observability", "logging", "metrics", "alerting"],
+      "technologies": ["datadog", "prometheus", "grafana", "sentry"],
+      "source": "marketplace",
+      "installCommand": "claude skill install monitoring-observability"
+    }
+  ],
+  "mcpTools": {
+    "research": {
+      "perplexity_ask": "General web research and current information",
+      "web_search_exa": "Code-focused search results",
+      "get_code_context_exa": "Library and SDK documentation",
+      "firecrawl_search": "Deep web search with content extraction"
+    },
+    "documentation": {
+      "resolve-library-id": "Find library documentation IDs",
+      "query-docs": "Query up-to-date library documentation",
+      "firecrawl_scrape": "Extract content from documentation pages"
+    },
+    "collections": {
+      "create_collection": "Create Raindrop.io bookmark collection",
+      "create_bookmark": "Add bookmark to collection",
+      "search_bookmarks": "Search existing bookmarks",
+      "get_bookmarks": "Retrieve bookmarks from collection"
+    }
+  }
+}
