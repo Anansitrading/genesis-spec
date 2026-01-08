@@ -78,7 +78,7 @@ claude
 ### Optional: Skills Marketplace
 
 Genesis can suggest relevant skills from the Claude Code Skills Marketplace during intake. Browse available skills at:
-- https://github.com/anthropics/claude-code-skills (or marketplace UI)
+- https://github.com/anthropics/skills
 
 ### Linux / macOS
 
