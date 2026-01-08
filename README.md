@@ -14,7 +14,7 @@ Genesis is a multi-agent workflow for Claude Code that generates comprehensive, 
 
 ```bash
 # Clone the repository
-git clone https://github.com/YOUR_USERNAME/genesis.git
+git clone https://github.com/Anansitrading/genesis-spec.git
 cd genesis
 
 # Run the installer for your OS
@@ -38,7 +38,7 @@ claude
 
 ```bash
 # Clone repository
-git clone https://github.com/YOUR_USERNAME/genesis.git
+git clone https://github.com/Anansitrading/genesis-spec.git
 cd genesis
 
 # Run installer
@@ -50,7 +50,7 @@ chmod +x install.sh
 
 ```powershell
 # Clone repository
-git clone https://github.com/YOUR_USERNAME/genesis.git
+git clone https://github.com/Anansitrading/genesis-spec.git
 cd genesis
 
 # Run installer (PowerShell as Administrator)
