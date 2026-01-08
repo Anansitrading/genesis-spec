@@ -1,10 +1,14 @@
 ---
+allowed-tools: Read, Write, Task, Bash, mcp__perplexity-ask__perplexity_ask, mcp__firecrawl__firecrawl_search, mcp__exa__web_search_exa, mcp__context7__resolve-library-id, mcp__context7__query-docs
 description: Generate Section 1 (Introduction) of the Genesis technical specification. Establishes project context, objectives, and scope.
+model: opus
 ---
 
 # Genesis Section 01: Introduction
 
 You are generating the Introduction section of a technical specification.
+
+**CRITICAL**: This section uses **ultrathink** for deep analysis. When you see "ultrathink:" engage extended thinking mode to analyze thoroughly before responding.
 
 ## Pre-Flight Checks
 
@@ -17,6 +21,12 @@ You are generating the Introduction section of a technical specification.
 
 3. **Check for Reference Materials**:
    Read any reference materials listed in the handoff.
+
+4. **Verify Ultrathink Mode**:
+   This section requires deep thinking. Confirm you will use ultrathink for:
+   - Problem analysis
+   - Success criteria definition
+   - Scope boundary decisions
 
 ## Research Phase (Parallel Subagents)
 
@@ -59,30 +69,100 @@ Wait for all subagents to complete before proceeding.
 
 ## Synthesis Phase
 
-Using the research results, generate the Introduction section with these components:
+### Pre-Synthesis Analysis
+
+ultrathink:
+Before writing, deeply analyze this project:
+
+1. What is the REAL problem being solved? (not the stated problem, the underlying need)
+2. Why does this problem exist? What conditions created it?
+3. Who experiences this pain most acutely? What's their current workaround?
+4. What makes NOW the right time to build this?
+5. What would failure look like? What are we really trying to avoid?
+6. What would undeniable success look like from each stakeholder's perspective?
+
+Think through each aspect thoroughly. The introduction sets the tone for the entire specification - it must be precise and compelling.
 
 ### 1.1 Executive Summary
-- Project Overview (2-3 paragraphs)
-- Core Business Problem
-- Key Stakeholders
-- Expected Business Impact
+
+ultrathink:
+Craft an executive summary that:
+- States the problem with evidence of its impact
+- Describes the solution at a conceptual level
+- Quantifies the expected business value
+- Identifies key stakeholders and their stakes
+
+Avoid marketing language. Be precise and technical.
+
+Generate:
+- Project Overview (2-3 paragraphs - precise, not promotional)
+- Core Business Problem (with quantified impact)
+- Key Stakeholders (with their specific concerns)
+- Expected Business Impact (with measurable outcomes)
 
 ### 1.2 System Overview
-- Current System Limitations
-- Integration with Existing Landscape
-- Primary System Capabilities
-- Major System Components (table format)
-- Core Technical Approach
+
+ultrathink:
+Analyze the system's place in the broader landscape:
+1. What systems currently address this need? Why are they insufficient?
+2. How will this system integrate with existing infrastructure?
+3. What are the major technical capabilities required?
+4. What major components are needed to deliver those capabilities?
+
+Generate:
+- Current System Limitations (specific, not vague)
+- Integration with Existing Landscape (explicit integration points)
+- Primary System Capabilities (derived from user needs)
+- Major System Components (table format with responsibilities)
+- Core Technical Approach (architecture philosophy)
 
 ### 1.3 Success Criteria
-- Measurable Objectives (table with metrics, targets, timelines)
-- Critical Success Factors
-- Key Performance Indicators
+
+ultrathink:
+Define success criteria that are:
+- Specific: No ambiguity in what "success" means
+- Measurable: Can be objectively evaluated
+- Achievable: Realistic given constraints
+- Relevant: Tied to business objectives
+- Time-bound: Clear timelines
+
+For each metric, consider:
+- How will it be measured?
+- What's the baseline?
+- What's the target?
+- What's the stretch goal?
+- What happens if we miss it?
+
+Generate:
+- Measurable Objectives (table with metrics, current baseline, targets, timelines)
+- Critical Success Factors (what must go right)
+- Key Performance Indicators (how we'll track progress)
+- Failure Conditions (explicitly what we're trying to avoid)
 
 ### 1.4 Scope
-- In-Scope: Core features, implementation boundaries
-- Out-of-Scope: Excluded features, future phases
-- Unsupported Use Cases
+
+ultrathink:
+Define scope boundaries with precision:
+
+IN-SCOPE: What must be delivered for the project to be considered successful?
+OUT-OF-SCOPE: What is explicitly NOT being built (and why)?
+GRAY AREAS: What might be scope creep? How do we decide?
+
+For each in-scope item, consider:
+- Why is this necessary for success?
+- What's the minimum viable implementation?
+- What's the full implementation?
+
+For each out-of-scope item, consider:
+- Why is this being excluded?
+- What's the impact of exclusion?
+- When might this be reconsidered?
+
+Generate:
+- In-Scope: Core features with explicit boundaries
+- Out-of-Scope: Excluded features with rationale
+- Unsupported Use Cases: What this system will NOT do
+- Scope Decision Framework: How to evaluate scope questions
 
 ## Output Requirements
 
@@ -93,6 +173,7 @@ Write to `genesis_output/sections/01_introduction.md`:
 - All subsections complete
 - Mermaid diagrams where helpful
 - Tables properly formatted
+- Every claim supported by evidence or explicit assumption
 
 ### Handoff Output
 
@@ -104,6 +185,7 @@ Create `genesis_output/handoffs/handoff_01_introduction.json`:
   "section_name": "Introduction",
   "completed_at": "[timestamp]",
   "status": "complete",
+  "ultrathink_enabled": true,
 
   "key_outputs": {
     "project_name": "[extracted]",
@@ -112,20 +194,31 @@ Create `genesis_output/handoffs/handoff_01_introduction.json`:
     "core_capabilities": ["capability 1", "capability 2"],
     "major_components": ["component 1", "component 2"],
     "success_metrics": [
-      {"metric": "name", "target": "value", "timeline": "when"}
+      {"metric": "name", "baseline": "current", "target": "value", "timeline": "when"}
     ]
   },
 
+  "ultrathink_analysis": {
+    "core_problem": "[deep analysis of the real problem]",
+    "success_definition": "[what undeniable success looks like]",
+    "failure_risks": "[what could go wrong]"
+  },
+
   "decisions_made": [
-    {"decision": "description", "rationale": "why"}
+    {
+      "decision": "description",
+      "rationale": "why (from ultrathink analysis)",
+      "alternatives_considered": ["alt1", "alt2"],
+      "reversibility": "easy/medium/hard"
+    }
   ],
 
   "assumptions": [
-    {"assumption": "description", "impact_if_wrong": "what happens"}
+    {"assumption": "description", "confidence": "high/medium/low", "impact_if_wrong": "what happens"}
   ],
 
   "open_questions": [
-    {"question": "description", "blocking": true}
+    {"question": "description", "blocking": true, "suggested_owner": "who should answer"}
   ],
 
   "research_findings": {
@@ -135,7 +228,7 @@ Create `genesis_output/handoffs/handoff_01_introduction.json`:
   },
 
   "next_section_context": {
-    "for_section_02": "Key information Product Requirements needs"
+    "for_section_02": "Key information Product Requirements needs from this introduction"
   }
 }
 ```
@@ -146,6 +239,20 @@ Save subagent outputs to `genesis_output/research/section_01/`:
 - `market_research.md`
 - `technical_context.md`
 - `codebase_analysis.md` (if applicable)
+- `ultrathink_analysis.md` - Capture key insights from extended thinking
+
+## Quality Validation
+
+ultrathink:
+Before finalizing, critically review:
+
+1. Would a new team member understand the project after reading this?
+2. Are all success criteria measurable and unambiguous?
+3. Is every scope decision justified?
+4. Are there hidden assumptions that need to be explicit?
+5. Would a hostile stakeholder find something to criticize?
+
+If any answer raises concerns, refine before completing.
 
 ## Completion Message
 
@@ -154,21 +261,29 @@ After generating all outputs:
 ```
 Section 01: Introduction - COMPLETE
 
+Ultrathink Analysis:
+- Core Problem: [summary of deep problem analysis]
+- Success Definition: [what we're really trying to achieve]
+
 Outputs created:
 ✓ genesis_output/sections/01_introduction.md
 ✓ genesis_output/handoffs/handoff_01_introduction.json
 ✓ genesis_output/research/section_01/
 
 Key decisions made:
-- [List decisions]
+- [List decisions with brief rationale]
+
+Assumptions requiring validation:
+- [List assumptions with confidence levels]
 
 Open questions for stakeholder review:
-- [List questions]
+- [List questions with suggested owners]
 
 Next steps:
 1. Review the generated introduction
-2. Start a NEW session
-3. Run: /genesis-section-02
+2. Validate assumptions with stakeholders
+3. Start a NEW session
+4. Run: /genesis-section-02
 
 Alternatively:
 $ ./genesis_orchestrator.sh --continue

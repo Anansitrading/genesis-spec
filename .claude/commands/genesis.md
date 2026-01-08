@@ -9,6 +9,8 @@ model: opus
 
 You are initiating a Genesis specification project. Your goal is to gather comprehensive, specific information through a structured intake process that ensures the resulting technical specification is highly professional, detailed, and non-generic.
 
+**CRITICAL**: Genesis uses **ultrathink** for deep reasoning at key moments. When you see "ultrathink:" in a section, engage extended thinking mode to analyze thoroughly before responding.
+
 ## Arguments Received
 - Primary Input: $1
 - Additional Context: $ARGUMENTS
@@ -45,6 +47,13 @@ After setup, restart Claude Code and run /genesis again.
 If all MCPs are available, proceed silently.
 
 ## Phase 1: Initial Context Analysis
+
+ultrathink:
+Before proceeding, deeply analyze any provided inputs. Consider:
+- What is the user actually trying to build?
+- What implicit requirements aren't stated?
+- What clarifying questions would a 10x engineer ask?
+- What constraints should we surface early?
 
 First, analyze any provided inputs:
 
@@ -99,28 +108,72 @@ Ask these questions (adapt based on what you already know):
 3. **Risk Tolerance**: Conservative (proven tech) or innovative (cutting edge)?
 4. **Reference Projects**: Any existing systems or products to emulate?
 
-## Phase 3: Clarification Round
+## Phase 3: Deep Clarification Round
 
-After gathering initial answers:
+ultrathink:
+After gathering initial answers, analyze deeply:
+1. What implicit requirements exist that the user hasn't stated?
+2. What edge cases will cause problems if not addressed now?
+3. What technical constraints create tension with the stated requirements?
+4. What assumptions am I making that could be wrong?
+5. What would a hostile stakeholder criticize about this specification?
+
+Think through each aspect thoroughly, then:
 
 1. **Identify Ambiguities**: List anything that's still unclear or too generic.
 2. **Probe for Specifics**: Ask follow-up questions to eliminate vagueness.
 3. **Surface Assumptions**: State your assumptions and ask user to confirm/correct.
 4. **Conflict Resolution**: If any answers contradict, clarify with user.
 
-Example probing questions:
-- "You mentioned 'fast performance' - what specific latency target in milliseconds?"
-- "For the user dashboard, what specific data visualizations are needed?"
-- "When you say 'integrate with Slack', do you mean notifications, commands, or full workflow?"
+**CRITICAL**: Never accept vague answers. Push for specifics:
+- Bad: "fast performance" → Good: "< 200ms p95 latency"
+- Bad: "many users" → Good: "10,000 DAU, 100 concurrent"
+- Bad: "handle errors appropriately" → Good: "retry 3x with exponential backoff, then alert via PagerDuty"
+- Bad: "secure" → Good: "SOC2 Type II compliant, encrypted at rest with AES-256"
 
-## Phase 3.5: Skills & Tools Suggestions
+## Phase 3.5: Technology Research & Skills Suggestions
 
-Based on the gathered requirements, search for relevant skills and suggest them to the user.
+### Step 1: Deep Technology Research
 
-### Step 1: Read Skills Registry
+ultrathink:
+Based on the gathered requirements, perform comprehensive technology research:
+
+For each major component (frontend, backend, database, etc.):
+1. What are the 3 best technology options for this project's constraints?
+2. How do they compare on: performance, learning curve, ecosystem, scalability?
+3. What are the risks and mitigations for each option?
+4. What is the recommended choice and why?
+
+Launch parallel research using MCP tools:
+
+**Research Thread 1: Technology Best Practices**
+```
+Use mcp__perplexity-ask__perplexity_ask to research:
+- "[technology] production best practices 2025"
+- "[framework] vs alternatives comparison"
+- "[technology] common pitfalls and solutions"
+```
+
+**Research Thread 2: Architecture Patterns**
+```
+Use mcp__exa__get_code_context_exa to get:
+- Current documentation for key libraries
+- Reference architecture examples
+- Code patterns for identified technologies
+```
+
+**Research Thread 3: Library Documentation**
+```
+Use mcp__context7__resolve-library-id and mcp__context7__query-docs:
+- Get up-to-date docs for core frameworks
+- Verify API patterns are current
+- Check for breaking changes in recent versions
+```
+
+### Step 2: Read Skills Registry
 Read `skills-registry.json` to get the list of available skills.
 
-### Step 2: Match Skills to Project
+### Step 3: Match Skills to Project
 Analyze the project requirements and match against skill triggers:
 
 | If Project Involves | Suggest Skill |
@@ -141,26 +194,28 @@ Analyze the project requirements and match against skill triggers:
 | GraphQL | `api-graphql` |
 | Monitoring, logging | `monitoring-observability` |
 
-### Step 3: Research Current Best Practices
-Use MCP tools to research current best practices for the identified technologies:
+### Step 4: Present Research Findings
+
+Present technology recommendations with justifications:
 
 ```
-Use mcp__perplexity-ask__perplexity_ask to research:
-- "[technology] best practices 2025"
-- "[framework] recommended patterns"
-```
+TECHNOLOGY ANALYSIS:
 
-```
-Use mcp__exa__get_code_context_exa to get:
-- Current documentation for key libraries
-- Code examples for identified patterns
-```
-
-### Step 4: Present Skills to User
-Present matched skills to the user:
-
-```
-Based on your project, I recommend these Claude Code skills:
+FRONTEND:
+┌─────────────────────────────────────────────────────────────┐
+│ Recommendation: Next.js 15 with App Router                  │
+│                                                             │
+│ Alternatives Considered:                                    │
+│ - Remix: Better data loading, but smaller ecosystem        │
+│ - Vite + React: Faster builds, but less full-stack         │
+│                                                             │
+│ Justification:                                              │
+│ - Best fit for team's React expertise                       │
+│ - Strong TypeScript support                                 │
+│ - Built-in API routes reduce infrastructure complexity      │
+│                                                             │
+│ Risks: Vercel lock-in | Mitigation: Self-host on Docker   │
+└─────────────────────────────────────────────────────────────┘
 
 RECOMMENDED SKILLS:
 ┌─────────────────────────────────────────────────────────────┐
@@ -169,21 +224,20 @@ RECOMMENDED SKILLS:
 │ Helps with: Component patterns, hooks, state management     │
 │ Install: claude skill install frontend-react                │
 └─────────────────────────────────────────────────────────────┘
-
-┌─────────────────────────────────────────────────────────────┐
-│ backend-node                                                 │
-│ Node.js Backend Development                                  │
-│ Helps with: API design, middleware, Express patterns        │
-│ Install: claude skill install backend-node                  │
-└─────────────────────────────────────────────────────────────┘
-
-Would you like me to note these in your specification for later installation?
 ```
 
-### Step 5: Record Suggested Skills
-Add suggested skills to the handoff file for reference during implementation.
+### Step 5: Record Research in Handoff
+Add technology decisions with full reasoning to the handoff file.
 
 ## Phase 4: Synthesis & Confirmation
+
+ultrathink:
+Synthesize all gathered information into a comprehensive build prompt:
+1. Are all requirements specific and measurable?
+2. Are there any contradictions between sections?
+3. Is every feature tied to a user need?
+4. Are constraints realistic given the timeline and team?
+5. Would a developer have zero ambiguity reading this?
 
 Create a structured summary document:
 
@@ -191,39 +245,53 @@ Create a structured summary document:
 # Genesis Build Prompt: [Project Name]
 
 ## Executive Summary
-[2-3 paragraphs synthesizing the project vision]
+[2-3 paragraphs synthesizing the project vision - written with precision]
 
 ## Target Users
-| User Type | Primary Goal | Key Pain Point |
-|-----------|--------------|----------------|
-| [Type 1]  | [Goal]       | [Pain]         |
+| User Type | Primary Goal | Key Pain Point | Success Metric |
+|-----------|--------------|----------------|----------------|
+| [Type 1]  | [Goal]       | [Pain]         | [Metric]       |
 
 ## Feature Priorities
 ### Critical (P0) - Must ship
-1. [Feature]: [Specific acceptance criteria]
+1. [Feature]:
+   - Acceptance Criteria: [Specific, testable criteria]
+   - Edge Cases: [Explicit edge case handling]
 
 ### Important (P1) - Should ship
-1. [Feature]: [Description]
+1. [Feature]: [Description with acceptance criteria]
 
 ### Future (P2) - Phase 2+
 1. [Feature]: [Description]
 
 ## Technical Requirements
-- **Scale**: [Specific numbers]
-- **Performance**: [Specific targets]
-- **Security**: [Specific requirements]
-- **Integrations**: [List with specifics]
+- **Scale**: [Specific numbers with growth projections]
+- **Performance**: [Specific targets with measurement method]
+- **Security**: [Specific requirements with compliance standards]
+- **Integrations**: [List with API versions and authentication methods]
+
+## Technology Stack (Justified)
+| Layer | Technology | Justification | Alternatives Considered |
+|-------|------------|---------------|-------------------------|
+| Frontend | [Tech] | [Why] | [Alt1, Alt2] |
+| Backend | [Tech] | [Why] | [Alt1, Alt2] |
+| Database | [Tech] | [Why] | [Alt1, Alt2] |
 
 ## Constraints & Decisions
-- **Technology**: [Mandated choices]
-- **Timeline**: [Key dates]
-- **Budget**: [Ranges]
+- **Technology**: [Mandated choices with reasons]
+- **Timeline**: [Key dates with dependencies]
+- **Budget**: [Ranges with cost drivers]
+
+## Risks & Mitigations
+| Risk | Probability | Impact | Mitigation |
+|------|-------------|--------|------------|
+| [Risk 1] | High/Med/Low | High/Med/Low | [Specific mitigation] |
 
 ## Open Questions
-1. [Question needing stakeholder input]
+1. [Question needing stakeholder input] - Impact if unresolved: [consequence]
 
 ## Assumptions
-1. [Assumption]: [Impact if wrong]
+1. [Assumption]: Impact if wrong: [consequence]
 ```
 
 Present this summary and ask: "Does this accurately capture your project? What needs correction or addition?"
@@ -251,51 +319,80 @@ Create `genesis_output/handoffs/handoff_00_init.json` with this structure:
 
 ```json
 {
-  "genesis_version": "1.0",
+  "genesis_version": "2.0",
+  "ultrathink_enabled": true,
   "project": {
     "name": "[from intake]",
     "description": "[from intake]",
     "created_at": "[current timestamp]",
     "target_users": "[from intake]",
-    "key_technologies": "[from intake]",
+    "key_technologies": "[from intake - with justifications]",
     "constraints": "[from intake]"
   },
+  "technology_decisions": [
+    {
+      "component": "[e.g., Frontend]",
+      "choice": "[e.g., Next.js 15]",
+      "justification": "[reasoning from ultrathink analysis]",
+      "alternatives_considered": ["[alt1]", "[alt2]"],
+      "risks": "[identified risks]",
+      "mitigations": "[specific mitigations]"
+    }
+  ],
   "reference_materials": [],
   "sections_completed": [],
   "current_section": null,
   "global_context": {
     "decisions": [],
-    "assumptions": "[from intake]",
-    "open_questions": "[from intake]"
+    "assumptions": "[from intake with impact analysis]",
+    "open_questions": "[from intake with priority]"
   },
   "intake_summary": {
-    "features_p0": "[critical features list]",
+    "features_p0": "[critical features with acceptance criteria]",
     "features_p1": "[important features list]",
-    "scale_targets": "[from intake]",
-    "performance_targets": "[from intake]",
-    "security_requirements": "[from intake]",
-    "timeline": "[from intake]",
-    "team_size": "[from intake]"
+    "scale_targets": "[from intake - specific numbers]",
+    "performance_targets": "[from intake - measurable]",
+    "security_requirements": "[from intake - specific standards]",
+    "timeline": "[from intake with milestones]",
+    "team_size": "[from intake with specializations]"
+  },
+  "suggested_skills": [
+    {
+      "name": "[skill name]",
+      "reason": "[why relevant]",
+      "install_command": "[command]"
+    }
+  ],
+  "research_artifacts": {
+    "technology_analysis": "[path to research file]",
+    "best_practices": "[path to research file]"
   }
 }
 ```
 
-### Step 4: Copy Reference Materials
+### Step 4: Save Research Artifacts
+
+Write technology research to `genesis_output/research/section_00_intake/`:
+- `technology_analysis.md` - Technology comparison and recommendations
+- `best_practices.md` - Current best practices research
+- `skills_recommendations.md` - Matched skills with justifications
+
+### Step 5: Copy Reference Materials
 
 If user provided context files, copy them:
 ```bash
 cp [provided files] genesis_sources/reference_materials/
 ```
 
-### Step 5: Verify Initialization
+### Step 6: Verify Initialization
 
 Run this check:
 ```bash
 ls -la genesis_output/handoffs/
-cat genesis_output/handoffs/handoff_00_init.json | head -20
+cat genesis_output/handoffs/handoff_00_init.json | head -30
 ```
 
-### Step 6: Ask User How to Proceed
+### Step 7: Ask User How to Proceed
 
 Use the AskUserQuestion tool to ask:
 
@@ -306,12 +403,12 @@ Use the AskUserQuestion tool to ask:
 2. **Run full automation** - Launch orchestrator to generate all 12 sections automatically (runs in background)
 3. **Exit and run manually** - I'll run sections myself when ready
 
-### Step 7: Execute Based on Choice
+### Step 8: Execute Based on Choice
 
 **If user chooses "Start Section 01 now":**
 - Read the section guide: `genesis_sources/section_guides/Genesis_Section_01_Introduction.md`
 - Read the handoff: `genesis_output/handoffs/handoff_00_init.json`
-- Execute Section 01 following the guide instructions
+- Execute Section 01 following the guide instructions with ultrathink at key moments
 - Launch parallel research subagents using Task tool
 - Generate the Introduction section
 - Create handoff_01_introduction.json
@@ -332,11 +429,10 @@ Monitor progress:
   tail -f genesis_output/logs/auto_run.log
 
 The orchestrator will:
-1. Run each section in a fresh Claude session
+1. Run each section in a fresh Claude session with ultrathink enabled
 2. Create handoff files between sections
 3. Compile the final specification when done
 
-Estimated time: 30-60 minutes for full specification
 Output: genesis_output/final/technical_specification.md
 ```
 
@@ -347,6 +443,7 @@ Genesis initialization complete!
 Your project files:
   - Build prompt: genesis_sources/build_prompt.md
   - Handoff: genesis_output/handoffs/handoff_00_init.json
+  - Research: genesis_output/research/section_00_intake/
 
 When ready, run:
   ./genesis_orchestrator.sh --continue   # Automated with pauses for review
@@ -358,20 +455,33 @@ Or manually:
   ... etc
 ```
 
-## Quality Guidelines
+## Quality Standards (Ultrathink-Enforced)
 
-Throughout the intake:
+Throughout the intake, use ultrathink to ensure:
 
-1. **Never accept vague answers** - Push for specifics
-   - Bad: "fast performance" → Good: "< 200ms p95 latency"
-   - Bad: "many users" → Good: "10,000 DAU, 100 concurrent"
+1. **Precision Over Vagueness**
+   - Every metric is specific and measurable
+   - Every feature has testable acceptance criteria
+   - Every constraint has a concrete value
 
-2. **Validate consistency** - Ensure answers don't contradict
+2. **Adversarial Validation**
+   - What would break this specification?
+   - What would a hostile reviewer criticize?
+   - What assumptions could be wrong?
 
-3. **Fill gaps proactively** - If user doesn't know, suggest reasonable defaults
+3. **Implementation Readiness**
+   - Could a developer implement from this alone?
+   - Is every decision justified?
+   - Are edge cases explicitly addressed?
 
-4. **Document everything** - Every decision, assumption, and open question
+4. **Consistency Checks**
+   - Do sections contradict each other?
+   - Are technology choices aligned with constraints?
+   - Are timelines realistic given scope?
 
-5. **Professional tone** - This is a technical document, not marketing copy
+5. **Professional Excellence**
+   - Would this impress a Staff+ engineer?
+   - Is the writing precise and unambiguous?
+   - Are trade-offs explicitly acknowledged?
 
-Begin the intake process now. Start by analyzing any provided inputs, then proceed with Section A questions.
+Begin the intake process now. Start by analyzing any provided inputs with ultrathink, then proceed with Section A questions.
