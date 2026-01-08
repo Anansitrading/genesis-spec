@@ -1,0 +1,38 @@
+# Genesis output files (don't commit generated specs)
+genesis_output/sections/
+genesis_output/handoffs/
+genesis_output/research/
+genesis_output/final/
+genesis_output/logs/
+
+# Keep directory structure
+!genesis_output/.gitkeep
+!genesis_output/sections/.gitkeep
+!genesis_output/handoffs/.gitkeep
+!genesis_output/research/.gitkeep
+!genesis_output/final/.gitkeep
+!genesis_output/logs/.gitkeep
+
+# User reference materials
+genesis_sources/reference_materials/*
+!genesis_sources/reference_materials/.gitkeep
+
+# Build prompt (user-specific)
+genesis_sources/build_prompt.md
+
+# Local settings
+.claude/settings.local.json
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+*.swp
+*.swo
+*~
+.idea/
+.vscode/
+
+# Logs
+*.log
